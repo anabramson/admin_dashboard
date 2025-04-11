@@ -23,21 +23,24 @@ body {
   font-family: 'Roboto', sans-serif;
   color: var(--text);
   background-color: var(--secondary);
-  display: grid;
-  grid-template-columns: var(--sidebar-width) 1fr;
   min-height: 100vh;
-  transition: var(--transition);
 }
 
-/* Sidebar */
+.dashboard-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar Styles */
 .sidebar {
+  width: var(--sidebar-width);
   background-color: var(--primary);
   color: var(--white);
   padding: 1.5rem 1rem;
-  grid-row: 1 / 3;
   position: relative;
   transition: var(--transition);
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .logo {
@@ -133,72 +136,296 @@ body {
   opacity: 1;
 }
 
-/* Collapsed state */
-body.collapsed {
-  grid-template-columns: var(--sidebar-collapsed-width) 1fr;
+/* Main Content Styles */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
-body.collapsed .sidebar {
+.top-bar {
+  background-color: var(--white);
+  padding: 1rem 2rem;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2rem;
+  box-shadow: var(--shadow);
+  z-index: 1;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.search-bar input {
+  flex: 1;
+  max-width: 500px;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 20px;
+  background-color: var(--secondary);
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.user-info .material-icons {
+  cursor: pointer;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-profile img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.greeting {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.greeting img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.greeting-text p {
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.greeting-text h2 {
+  font-size: 1.2rem;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.actions button {
+  padding: 0.5rem 1.5rem;
+  border: none;
+  border-radius: 20px;
+  background-color: var(--primary);
+  color: var(--white);
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.actions button:hover {
+  background-color: var(--primary-dark);
+}
+
+/* Content Area Styles */
+.content-area {
+  flex: 1;
+  display: flex;
+  padding: 2rem;
+  gap: 2rem;
+  overflow-y: auto;
+}
+
+.projects {
+  flex: 2;
+}
+
+.projects h3 {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.project-card {
+  background-color: var(--white);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  border-left: 5px solid var(--accent);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.project-card h4 {
+  font-size: 1.1rem;
+}
+
+.project-card p {
+  color: var(--text-light);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  flex-grow: 1;
+}
+
+.project-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.project-actions .material-icons {
+  cursor: pointer;
+  color: var(--text-light);
+  transition: var(--transition);
+}
+
+.project-actions .material-icons:hover {
+  color: var(--primary);
+}
+
+/* Right Sidebar Styles */
+.right-sidebar {
+  width: 300px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.announcements, .trending {
+  background-color: var(--white);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+.announcements h3, .trending h3 {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.announcement-item {
+  padding: 1rem 0;
+}
+
+.announcement-item:not(:last-child) {
+  border-bottom: 1px solid var(--secondary);
+}
+
+.announcement-item h5 {
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+}
+
+.announcement-item p {
+  color: var(--text-light);
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.trending-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 0;
+}
+
+.trending-item img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.trending-info h5 {
+  font-size: 0.9rem;
+}
+
+.trending-info p {
+  color: var(--text-light);
+  font-size: 0.8rem;
+}
+
+/* Collapsed State */
+.dashboard-container.collapsed .sidebar {
   width: var(--sidebar-collapsed-width);
 }
 
-body.collapsed .logo h1,
-body.collapsed .nav-section h2,
-body.collapsed .nav-text {
+.dashboard-container.collapsed .logo h1,
+.dashboard-container.collapsed .nav-section h2,
+.dashboard-container.collapsed .nav-text {
   opacity: 0;
   width: 0;
   overflow: hidden;
 }
 
-body.collapsed .collapse-btn .material-icons {
+.dashboard-container.collapsed .collapse-btn .material-icons {
   transform: rotate(180deg);
 }
 
-/* Rest of your CSS remains the same with these additions */
-.project-card {
-  position: relative;
-  overflow: hidden;
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .content-area {
+    flex-direction: column;
+  }
+  
+  .right-sidebar {
+    width: 100%;
+  }
 }
 
-.project-card::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, rgba(25,146,212,0.1) 0%, rgba(240,180,41,0.05) 100%);
-  opacity: 0;
-  transition: var(--transition);
+@media (max-width: 768px) {
+  .dashboard-container {
+    flex-direction: column;
+  }
+  
+  .sidebar {
+    width: 100%;
+    padding: 1rem;
+  }
+  
+  .top-bar {
+    grid-template-columns: 1fr;
+  }
+  
+  .dashboard-container.collapsed .sidebar {
+    width: 100%;
+  }
+  
+  .dashboard-container.collapsed .nav-section {
+    display: none;
+  }
+  
+  .dashboard-container.collapsed .logo h1 {
+    display: inline;
+    opacity: 1;
+    width: auto;
+  }
 }
 
-.project-card:hover::after {
-  opacity: 1;
-}
-
-.actions button {
-  transition: var(--transition);
-  position: relative;
-  overflow: hidden;
-}
-
-.actions button::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 100%);
-  opacity: 0;
-  transition: var(--transition);
-}
-
-.actions button:hover::after {
-  opacity: 1;
-}
-
-/* Modern scrollbar */
+/* Scrollbar Styles */
 ::-webkit-scrollbar {
   width: 8px;
 }

@@ -1,19 +1,19 @@
 document.addEventListener('DOMContentLoaded', function() {
   // Collapse/expand sidebar functionality
   const collapseBtn = document.querySelector('.collapse-btn');
-  const body = document.body;
+  const dashboard = document.querySelector('.dashboard-container');
   
   collapseBtn.addEventListener('click', function() {
-    body.classList.toggle('collapsed');
+    dashboard.classList.toggle('collapsed');
     
     // Store preference in localStorage
-    const isCollapsed = body.classList.contains('collapsed');
+    const isCollapsed = dashboard.classList.contains('collapsed');
     localStorage.setItem('sidebarCollapsed', isCollapsed);
   });
   
   // Check for saved preference
   if (localStorage.getItem('sidebarCollapsed') === 'true') {
-    body.classList.add('collapsed');
+    dashboard.classList.add('collapsed');
   }
 
   // Project card interactions
@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', function() {
     card.addEventListener('click', function(e) {
       if (!e.target.classList.contains('material-icons')) {
         console.log(`Opening project: ${this.querySelector('h4').textContent}`);
-        // Add your project opening logic here
       }
     });
   });
@@ -48,33 +47,12 @@ document.addEventListener('DOMContentLoaded', function() {
   notificationBell.addEventListener('click', function() {
     notificationCount.textContent = '0';
     notificationCount.style.backgroundColor = 'transparent';
-    // Show notifications dropdown in a real app
   });
 
-  // Action buttons with ripple effect
+  // Action buttons
   const actionButtons = document.querySelectorAll('.actions button');
   actionButtons.forEach(button => {
-    button.addEventListener('click', function(e) {
-      // Ripple effect
-      const ripple = document.createElement('span');
-      ripple.className = 'ripple';
-      const rect = button.getBoundingClientRect();
-      const size = Math.max(rect.width, rect.height);
-      const x = e.clientX - rect.left - size/2;
-      const y = e.clientY - rect.top - size/2;
-      
-      ripple.style.width = ripple.style.height = `${size}px`;
-      ripple.style.left = `${x}px`;
-      ripple.style.top = `${y}px`;
-      ripple.style.backgroundColor = 'rgba(255, 255, 255, 0.4)';
-      
-      button.appendChild(ripple);
-      
-      setTimeout(() => {
-        ripple.remove();
-      }, 600);
-      
-      // Button action
+    button.addEventListener('click', function() {
       const action = this.textContent.toLowerCase();
       console.log(`${action} action triggered`);
     });
